@@ -1,0 +1,21 @@
+<?php 
+class Conexion_sqlite{
+	protected $con;
+	public function __construct(){
+		try{
+			$this->con = new PDO('sqlite:path\database.db');
+			$this->con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);	
+		}catch(PDOException $e){
+			echo "Error al conectarse!: ".$e->getMessage();
+		}		
+	}
+
+	public function getData($sql){
+		$res = $this->con->query($sql);
+		return $res;
+	}
+	
+	public function closeConnection(){
+		$this->con = NULL;
+	}
+}
